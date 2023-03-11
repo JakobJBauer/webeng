@@ -1,0 +1,794 @@
+/*****************************************************************************
+  Common Elements 
+ *****************************************************************************/
+
+:root {
+  --serif-font: Palatino, "Palatino Linotype", "URW Palladio L", serif;
+  --primary-color: #2E3225;
+  --bg-color: #eff6f5;
+  --label-color: #FFFFFF;
+  --label-height: 1.25rem;
+}
+
+body {
+  font-family: var(--serif-font);
+  font-size: 1rem;
+  line-height: 1.2rem;
+  height: 100%;
+  margin: 0;
+  background-color: var(--bg-color);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 4rem 2rem;
+}
+
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color)
+}
+
+.museum-label {
+  padding: 1em;
+  margin-top: 1rem;
+  background-color: var(--label-color);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  text-align: left;
+}
+
+.museum-label .artist {
+  font-weight: bold;
+}
+
+.museum-label .artist:after { /* sketchy <br> insert */
+  content: "\a";
+  white-space: pre;
+}
+
+.museum-label .title {
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  main {
+    margin: 0 2rem 1rem;
+  }
+}
+
+
+
+/* Buttons *******************************************************************/
+
+button {
+  cursor: pointer;
+  border: 0 none;
+  font: var(--serif-font);
+  height: 2.5em;
+  padding: 0 2em;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 600px) {
+  button {
+    padding: 0 1em;
+  }
+}
+
+
+/*****************************************************************************
+  Header & Navigation
+ *****************************************************************************/
+
+header {
+  font-size: 2rem;
+  height: 3rem;
+  padding: 1em 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 1.5em;
+}
+
+.logo img {
+  height: 100%;
+}
+
+nav {
+  text-align: right;
+}
+
+nav a {
+  margin-left: 1em;
+}
+
+nav a:hover {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+@media (max-width: 600px) {
+  header {
+    font-size: 1rem;
+    height: 2rem;
+  }
+
+  nav a:hover {
+    border-bottom: 1px;
+  }
+}
+
+
+
+/*****************************************************************************
+  Search
+ *****************************************************************************/
+
+.search-form {
+  width: min(500px, 100%);
+  display: flex;
+  margin: 0;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 0.5em;
+  margin: 0;
+  font-family: inherit;
+  font-size: 1em;
+  height: calc(2 * var(--label-height));
+  width: 100%;
+}
+
+input[type="search"]:focus {
+  outline: none;
+}
+
+::placeholder {
+  opacity: 0.5;
+}
+
+::-webkit-search-decoration,
+::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.search-info {
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  column-gap: 50px;
+  row-gap: 50px;
+  justify-content: center;
+}
+
+.thumb {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.thumb img {
+  max-width: 300px;
+  max-height: 300px;
+  transition: all 0.5s;
+  margin: auto;
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.5);
+}
+
+.thumb img:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 600px) {
+  .search-form {
+    margin-top: 1rem;
+  }
+}
+
+
+
+/*****************************************************************************
+  Framing
+ *****************************************************************************/
+
+.framing-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.framing-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  max-height: 500px;
+  min-width: 250px;
+  flex: 1 1 250px;
+  margin: 2rem 4rem;
+}
+
+.framing-preview img {
+  border: 0 solid black; /* necessary for Chrome & Firefox */
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.framing-preview .museum-label {
+  margin-top: 1rem;
+}
+
+.framing-form {
+  width: 400px;
+  padding: 0;
+  margin-top: 0;
+}
+
+.framing-form fieldset {
+  border: none;
+  min-width: auto;
+  border-bottom: 1px solid #eff6f5;
+  padding: 15px 20px 15px 20px;
+  margin: 0;
+}
+
+.framing-form fieldset:last-of-type {
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* legend is necessary for accessibility, but we don't want to show it */
+.framing-form fieldset legend {
+  position: absolute;
+  clip: rect(0 0 0 0);
+}
+
+.framing-form .slide-container {
+  line-height: 1.5em;
+}
+
+.framing-form .slide-container .slider-text {
+  width: 2.5em;
+  padding: 3px;
+  border: 0 none;
+  background-color: var(--bg-color);
+  text-align: right;
+  font: var(--serif-font);
+  height: 1em;
+}
+
+.framing-form .slide-container .slider-text-wrapper {
+  float: right;
+}
+
+.framing-form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  line-height: 1.5em;
+}
+
+.framing-form button.buy {
+  margin-top: 0.5em;
+  width: 100%;
+}
+
+#price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .framing-main {
+    flex-direction: column;
+    margin: 0;
+  }
+  
+  .preview {
+    width: 90%;
+    flex: 0 0 auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .framing-form {
+    width: 100%;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+/* Segmented Control *********************************************************/
+
+.segmented {
+  display: flex;
+  height: 3em;
+}
+
+.segmented input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  border-style: none;
+}
+
+.segmented label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.segmented input:checked + label {
+  font-weight: bold;
+  opacity: 1;
+}
+
+/* Number Fields & Range Sliders *********************************************/
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  width: 2.5em;
+  height: 1em;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: right;
+  border: none;
+  padding: 3px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/*
+Styling the range input element is very tricky.
+If you want to know more, see
+https://css-tricks.com/sliding-nightmare-understanding-range-input
+*/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 0.5rem;
+  background: transparent;
+  background-color: var(--bg-color);
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-style: none;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 1px 1px 3px;
+  margin-top: -2px;
+  color: rgb(144,144,144);
+}
+
+::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-style: none;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 1px 1px 3px;
+  color: rgb(144,144,144);
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+/* Frame Style Picker ********************************************************/
+
+.frame-style-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+  text-align: center;
+  margin-left: -20px;
+  margin-right: -20px;
+  overflow-x: hidden;
+}
+
+.frame-style-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100px;
+}
+
+.frame-style-item:first-of-type {
+  padding-left: 20px;
+}
+
+.frame-style-item:last-of-type {
+  padding-right: 20px;
+}
+
+.frame-style-item img {
+  height: 50px;
+  transform: rotate(45deg);
+  margin: 0px 20px 0px 20px;
+}
+
+.frame-style-item input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border-style: none;
+}
+
+.frame-style-item label {
+  cursor: pointer;
+  opacity: 0.4;
+  line-height: 2em;
+}
+
+.frame-style-item input:checked + label {
+  opacity: 1;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .frame-style-item {
+    height: 75px;
+  }
+  .frame-style-item img {
+    transform: rotate(45deg) scale(0.75);
+  }
+  .frame-style-item label {
+    line-height: 1em;
+  }
+}
+
+/* Mat Color Picker **********************************************************/
+
+.mat-color-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+  text-align: center;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.mat-color-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 10px 0 10px;
+}
+
+.mat-color-item:first-of-type {
+  padding-left: 20px;
+}
+
+.mat-color-item:last-of-type {
+  padding-right: 20px;
+}
+
+.mat-color-item input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #eff2f5;
+  margin: 0 0 5px 0;
+  align-self: center;
+  opacity: 0.5;
+}
+
+.mat-color-item input:checked {
+  border: 2px solid #2b2e32;
+  opacity: 1;
+}
+
+.mat-color-item input:focus {
+  outline: none;
+}
+
+.mat-color-item label {
+  cursor: pointer;
+  opacity: 0.5;
+  padding-top: 0.25em;
+}
+
+.mat-color-item input:checked + label {
+  font-weight: bold;
+  opacity: 1;
+}
+
+#mat-color-cream {
+  background-color: #d4ffea;
+}
+#mat-color-carla {
+  background-color: #F5F8CF;
+}
+#mat-color-glacier {
+  background-color: #78B1BF;
+}
+#mat-color-pacific {
+  background-color: #006666;
+}
+#mat-color-seal {
+  background-color: #2A1212;
+}
+
+
+/*****************************************************************************
+  Cart
+ *****************************************************************************/
+
+
+.cart-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  height: 250px;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 3rem;
+}
+
+.cart-preview img {
+  border: 0 solid black; /* necessary for Chrome & Firefox */
+  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.5);
+}
+
+.cart-item {
+  display: flex;
+  margin: 1rem 1rem 2rem 1rem;
+  /*justify-content: center;*/
+}
+
+.cart-item .museum-label {
+  flex-grow: 1;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+}
+
+.cart-item .museum-label .price {
+  font-weight: bold;
+  margin-top: 1rem;
+  float: right;
+}
+
+.cart-item .year:after { /* sketchy <br> insert */
+  content: "\a\a";
+  white-space: pre;
+}
+
+.cart-item .description:after { /* sketchy <br> insert */
+  content: "\a";
+  white-space: pre;
+}
+
+.cart-remove::before {
+  content: "✕";
+  font-family: sans-serif;
+}
+
+.cart-remove {
+  padding: 0;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  position: absolute;
+  top: -0.75em;
+  right: -0.75em;
+}
+
+.cart-total-wrapper {
+  /*justify-content: end;*/ /* Doesn't work in test tool ??? */
+  display: block;
+  text-align: right;
+}
+
+.cart-total {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.cart-checkout-wrapper {
+  /*justify-content: end;*/ /* Doesn't work in test tool ??? */
+  display: block;
+  text-align: right;
+}
+
+.cart-checkout {
+  align-self: flex-end;
+}
+
+@media (max-width: 600px) {
+  .cart-item {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .cart-preview {
+    justify-content: flex-end;
+    align-self: center;
+    margin-right: 0;
+  }
+
+  .cart-total {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .cart-checkout {
+    align-self: stretch;
+    width: 100%;
+  }
+
+  /*header {*/
+  /*  padding-top: 0;*/
+  /*}*/
+
+  /*#cart-header {*/
+  /*  padding-top: 0;*/
+  /*}*/
+}
+
+
+/*****************************************************************************
+  Checkout
+ *****************************************************************************/
+
+.checkout-form > div {
+  margin: 1rem 0;
+  text-align: right;
+}
+
+/* this is a workaround for a Chrome bug that disallows display:grid on fieldset elements */
+.checkout-form div.grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-gap: 0.5em 1em;
+  align-items: center;
+}
+
+.checkout-form fieldset {
+  border: none;
+  margin: 2rem 0;
+  padding: 0;
+}
+
+.checkout-form fieldset legend {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 0.5rem;
+}
+
+.checkout-form input {
+  font: var(--serif-font);
+  -moz-appearance: textfield;
+  font-family: inherit;
+  font-size: 1em;
+  height: 1.25rem;
+  line-height: 1.25rem;
+  padding: 3px;
+  text-indent: 1.25px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.checkout-total {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.checkout-form .button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .checkout-form {
+    width: 100%;
+  }
+  .checkout-form label {
+    margin-bottom: -0.25em;
+    margin-top: 0.25em;
+  }
+  .checkout-form input {
+    margin: 0;
+  }
+  .checkout-form select {
+    width: 100%;
+  }
+  .checkout-form div.grid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-form .button-row {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .checkout-form .button-row button {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+}
+
+/* Dropdowns *****************************************************************/
+
+select {
+	display: block;
+	font-family: inherit;
+  font-size: 1em;
+  line-height: 1.25rem;
+  height: 1.75rem;
+  padding: 3px;
+  text-indent: 1.25px;  
+	box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+	-moz-appearance: none;
+	-webkit-appearance: none;
+  appearance: none;
+  background: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E") no-repeat;
+  background-position: right .7em top 50%, 0 0;
+  background-color: white;
+  border-radius: 0;
+}
+
+select::-ms-expand {
+	display: none;
+}

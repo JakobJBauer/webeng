@@ -1,0 +1,27 @@
+[
+  {
+    "id": "cream",
+    "label": "Cream",
+    "color": "#d4ffea"
+  },
+  {
+    "id": "carla",
+    "label": "Carla",
+    "color": "#F5F8CF"
+  },
+  {
+    "id": "glacier",
+    "label": "Glacier",
+    "color": "#78B1BF"
+  },
+  {
+    "id": "pacific",
+    "label": "Pacific",
+    "color": "#006666"
+  },
+  {
+    "id": "seal",
+    "label": "Seal",
+    "color": "#2A1212"
+  }
+]

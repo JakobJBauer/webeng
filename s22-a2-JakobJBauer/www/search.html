@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Search | Artmart</title>
+</head>
+
+<body>
+  <header>
+    <a href="search.html">
+      <img src="artmart_logo.png" alt="Artmart" class="logo">
+    </a>
+    <nav>
+      <a href="search.html">Search</a>
+      <a href="cart.html" id="cart-link">Cart</a>
+    </nav>
+  </header>
+
+  <main>
+    <form role="search" class="search-form">
+      <input type="search" id="search" name="q" placeholder="Search the collection" aria-labelledby="searchbutton">
+      <button type="submit" id="searchbutton">Search</button>
+    </form>
+
+    <div id="search-info" class="search-info">
+      Search our collection of more than 400,000 artworks.
+    </div>
+
+    <section id="gallery" class="gallery"></section>
+  </main>
+
+  <script type="module">
+    import * as Cart from './cart.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      displayItems();
+    })
+
+    const galleryElement = document.getElementById('gallery');
+    const searchElement =  document.getElementById('search-info');
+    const cartLinkElement = document.getElementById('cart-link');
+
+    function getParams() {
+      return (new URLSearchParams(window.location.search)).get('q') || '';
+    }
+
+    async function loadDefaultItemIds() {
+      return (await (await fetch('./highlights.json')).json()).highlights;
+    }
+
+    async function loadFilteredItemIds(params) {
+      searchElement.innerHTML = `Searching for “` + params + `”…`;
+      const resp = (
+        await (
+          await fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=' + params)
+        ).json()
+      ).objectIDs;
+      return resp ? resp.slice(0, 100) : [];
+    }
+
+    function renderRequestUrls(itemIds) {
+      return itemIds.map(itemId => 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + itemId)
+    }
+
+    async function fetchItems(itemIds) {
+      return await Promise.all (
+              (await Promise.all(
+                      renderRequestUrls(itemIds).map(url => fetch(url))
+              )).map(res => res.json())
+      )
+    }
+
+    function renderHtml(item) {
+      return `
+            <div class="thumb">
+                <a href="framing.html?objectID=${item.objectID}">
+
+                    <img src="${item.primaryImageSmall}">
+                    <div class="museum-label">
+                    <span class="artist">${item.artistDisplayName}</span>
+                    <span class="title">${item.title}</span>,
+                    <span class="date">${item.objectDate}</span>
+                    </div>
+                </a>
+            </div>
+            `;
+    }
+
+    async function loadItems() {
+      const params = getParams();
+      if (params === sessionStorage.getItem('params')) return JSON.parse(sessionStorage.getItem('items'));
+
+      const itemIds = params ? await loadFilteredItemIds(params) : await loadDefaultItemIds();
+      const items = await fetchItems(itemIds);
+
+      sessionStorage.setItem('params', params);
+      sessionStorage.setItem('items', JSON.stringify(items));
+
+      return items;
+    }
+
+    async function displayItems() {
+      const items = await loadItems();
+      if (getParams())
+        searchElement.innerHTML = `Found ${items.length} ${items.length === 1 ? 'artwork' : 'artworks'} for “${sessionStorage.getItem('params')}”`;
+
+      galleryElement.innerHTML = items.map(item => renderHtml(item)).reduce((prev, curr) => prev + curr, '');
+      document.getElementById('cart-link').innerHTML = Cart.getCartSizeText();
+    }
+  </script>
+</body>
+
+</html>
